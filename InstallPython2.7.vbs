@@ -21,19 +21,18 @@ Else
     Dim ProgramName: ProgramName = "Install Python 2.7.11"
     Dim popOnTop : popOnTop = 4096
     Dim ProgramPath : ProgramPath = "\\netapp3\Aero_IET\Software\Applications\Python\source\python-2.7.11.amd64.msi" 
-    'Dim ProgramPathTwo : ProgramPathTwo = "\\netapp3\Aero_IET\Software\Applications\Python\source\python-2.7.11.msi" 
+    Dim ProgramPathTwo : ProgramPathTwo = "powershell.exe -NoProfile -File C:\Users\g0069775-ta\Documents\VBSProject\InstallPython\SetEnvForPython.ps1 -verbose"
 
     Dim Arg : Arg = "/passive /norestart"
-
     Dim objShell : Set objShell = createobject("Wscript.shell")
     Dim oFSO: Set oFSO = CreateObject("Scripting.FileSystemObject")
     Dim oEnv : Set oEnv = objShell.Environment("PROCESS")
 
     '''''Process Block ''''
+    objShell.run ProgramPathTwo,4,false
 
-
-    Call installSoftware(ProgramName,ProgramPath,Arg)
-    'Call installSoftware(ProgramPathTwo,ProgramPath,Arg)
+    'Call installSoftware(ProgramName,ProgramPath,Arg)
+    'Call installSoftware(ProgramPathTwo,ProgramPath,ArgTwo)
 
     ''''Function Block '''''
 '/passive /norestart
