@@ -20,8 +20,8 @@ Else
 
     Dim ProgramName: ProgramName = "Install Python 2.7.11"
     Dim popOnTop : popOnTop = 4096
-    Dim ProgramPath : ProgramPath = "\\netapp3\Aero_IET\Software\Applications\Python\source\python-2.7.11.amd64.msi" 
-    Dim ProgramPathTwo : ProgramPathTwo = "powershell.exe -NoProfile -File C:\Users\g0069775-ta\Documents\VBSProject\InstallPython\SetEnvForPython.ps1 -verbose"
+    Dim ProgramPath : ProgramPath = ScriptDir + "\source\python-2.7.11.amd64.msi" 
+    Dim SetEnviromentForPython : SetEnviromentForPython = "powershell.exe -NoProfile -File "+ ScriptDir +"\SetEnvForPython.ps1 -verbose"
 
     Dim Arg : Arg = "/passive /norestart"
     Dim objShell : Set objShell = createobject("Wscript.shell")
@@ -29,13 +29,14 @@ Else
     Dim oEnv : Set oEnv = objShell.Environment("PROCESS")
 
     '''''Process Block ''''
-    objShell.run ProgramPathTwo,4,false
 
-    'Call installSoftware(ProgramName,ProgramPath,Arg)
-    'Call installSoftware(ProgramPathTwo,ProgramPath,ArgTwo)
+    Call installSoftware(ProgramName,ProgramPath,Arg)
+    objShell.run SetEnviromentForPython,4,false
 
     ''''Function Block '''''
-'/passive /norestart
+Function ScriptDir
+	ScriptDir = Left(WScript.ScriptFullName,Len(WScript.ScriptFullName) - Len(WScript.ScriptName) -1)
+End Function
  Sub installSoftware(ProgramName,installPath,arg)
 	oENV("SEE_MASK_NOZONECHECKS") = 1
 	Dim BWaitOnReturn : bWaitOnReturn = True
