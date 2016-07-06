@@ -21,7 +21,7 @@ Else
     Dim ProgramName: ProgramName = "Install Python 2.7.11"
     Dim popOnTop : popOnTop = 4096
     Dim ProgramPath : ProgramPath = ScriptDir + "\source\python-2.7.11.amd64.msi" 
-    Dim SetEnviromentForPython : SetEnviromentForPython = "powershell.exe -NoProfile -File "+ ScriptDir +"\SetEnvForPython.ps1 -verbose"
+    Dim SetEnviromentForPython : SetEnviromentForPython = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File "+ ScriptDir +"\SetEnvForPython.ps1 -verbose"
 
     Dim Arg : Arg = "/passive /norestart"
     Dim objShell : Set objShell = createobject("Wscript.shell")
