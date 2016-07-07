@@ -8,8 +8,9 @@ Param (
 try{
     Write-Verbose "Setting Machine Environment Variable"
     $s = [System.Environment]::GetEnvironmentVariable("Path",$Type).split(";")
-    $s = $s.Split(";")
+    
     $count = ($s -eq "C:\Python27").Count
+
     if($s.Contains("C:\Python27")){
     [system.array]::Clear($s,$s.IndexOf("C:\Python27"),$count)
     [system.array]::Resize([ref]$s,($s.Count-$count))
