@@ -3,19 +3,21 @@ Param (
 [Parameter(Position=0,
            ValueFromPipeline=$true)]
            [System.EnvironmentVariableTarget]
-           $Type = "Machine")
+           $Type = "Machine",
+           [string]
+           $AddPath = "C:\Python27")
            
 try{
     Write-Verbose "Setting Machine Environment Variable"
     $s = [System.Environment]::GetEnvironmentVariable("Path",$Type).split(";")
     
-    $count = ($s -eq "C:\Python27").Count
+    $count = ($s -eq $AddPath).Count
 
-    if($s.Contains("C:\Python27")){
-    [system.array]::Clear($s,$s.IndexOf("C:\Python27"),$count)
+    if($s.Contains($AddPath)){
+    [system.array]::Clear($s,$s.IndexOf($AddPath),$count)
     [system.array]::Resize([ref]$s,($s.Count-$count))
     }
-    $s += "C:\Python27"
+    $s += $AddPath
     $s = [System.String]::Join(";",$s)
     
     [System.Environment]::SetEnvironmentVariable("Path", $s, $Type )
