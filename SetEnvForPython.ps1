@@ -2,14 +2,23 @@
 Param (
 [Parameter(Position=0,
            ValueFromPipeline=$true)]
+[CmdletBinding()]
+Param (
+           [Parameter(Position=2, ValueFromPipeline=$true)]
+           [string]
+           $Name = "Path",           
+           [Parameter(Position=1, ValueFromPipeline=$true)]
            [System.EnvironmentVariableTarget]
            $Type = "Machine",
+           [Parameter(Position=0, ValueFromPipeline=$true)]
            [string]
-           $AddPath = "C:\Python27")
+           $AddPath = "C:\Python27"
+
+      )
            
 try{
     Write-Verbose "Setting Machine Environment Variable"
-    $s = [System.Environment]::GetEnvironmentVariable("Path",$Type).split(";")
+    $s = [System.Environment]::GetEnvironmentVariable($Name,$Type).split(";")
     
     $count = ($s -eq $AddPath).Count
 
@@ -20,9 +29,9 @@ try{
     $s += $AddPath
     $s = [System.String]::Join(";",$s)
     
-    [System.Environment]::SetEnvironmentVariable("Path", $s, $Type )
+    [System.Environment]::SetEnvironmentVariable($Name, $s, $Type )
      
-    [System.Environment]::GetEnvironmentVariable("Path",$Type).split(";")
+    [System.Environment]::GetEnvironmentVariable($Name,$Type).split(";")
 }
 catch{
 
